@@ -1,6 +1,5 @@
 const { User, Thoughts } = require('../models');
 
-// Function to get the number of users
 module.exports = {
     //Get all users
     getUsers(req, res) {
