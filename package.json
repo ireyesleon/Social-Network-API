@@ -1,0 +1,24 @@
+{
+  "name": "social-network-api",
+  "version": "1.0.0",
+  "description": "This is the backend of a Social Network to create thoughts, add reactions and friends.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ireyesleon/Social-Network-API.git"
+  },
+  "author": "Isaias Reyes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ireyesleon/Social-Network-API/issues"
+  },
+  "homepage": "https://github.com/ireyesleon/Social-Network-API#readme",
+  "dependencies": {
+    "express": "^4.17.3",
+    "mongoose": "^6.2.9"
+  }
+}

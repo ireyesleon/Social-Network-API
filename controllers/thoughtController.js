@@ -4,6 +4,7 @@ module.exports = {
     //Get all thoughts
     getThoughts(req, res) {
         Thoughts.find()
+        .populate('reactions')
         .then((thoughts) => res.json(thoughts))
         .catch((err) => res.status(500).json(err));
     },
@@ -11,7 +12,7 @@ module.exports = {
     //Get single thought
     getSingleThought(req, res) {
         Thoughts.findOne({ _id: req.params.thoughtId })
-        .select('-__v')
+        .populate('reactions')
         .then((thought) => 
         !thought
         ? res.status(404).json({ message: 'No thought was found with that id' })
@@ -26,7 +27,7 @@ module.exports = {
         .then((thought) => {
             return User.findOneAndUpdate(
                 { _id: req.body.userId },
-                { $addToSet: { thoughts: thoughts._id } },
+                { $push: { thoughts: thought._id } },
                 { new: true }
             );
         })
@@ -86,14 +87,14 @@ module.exports = {
             ? res.status(404).json({ message: 'The thought does not exist '})
             : res.json(thought)
         )
-        .cacth((err) => res.status(500).json(err));
+        .catch((err) => res.status(500).json(err));
     },
 
     // Remove reaction
     removeReaction(req, res) {
         Thoughts.findOneAndUpdate(
             { _id: req.params.thoughtId },
-            { $pull: { reactions: { reactionId: req.params.reactionId } } }
+            { $pull: { reactions: { reactionId: req.params.reactionId } } },
             { runValidators: true, new: true }
         )
         .then((thought) =>
