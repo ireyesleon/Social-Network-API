@@ -8,7 +8,10 @@ const {
 } = require('../../controllers/thoughtController');
 
 router.route('/').get(getThoughts).post(createThought);
-router.route('/:thoughtId').get(getSingleThought).delete(deleteThought);
+router
+.route('/:thoughtId')
+.get(getSingleThought)
+.delete(deleteThought);
 //Pending to add route to update thought
 
 module.exports = router;

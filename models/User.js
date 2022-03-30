@@ -20,8 +20,6 @@ const userSchema = new Schema(
         friends: {
             // Array of `_id` values referencing the `User` model (self-reference)
         },
-    },
-        {
         toJSON: {
             getters: true,
         },
@@ -30,4 +28,4 @@ const userSchema = new Schema(
 
 const User = model('user', userSchema);
 
-module.experts = User;
+module.exports = User;
