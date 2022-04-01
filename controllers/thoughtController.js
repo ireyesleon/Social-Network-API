@@ -50,7 +50,7 @@ module.exports = {
         .then((thought) =>
         !thought
         ? res.status(404).json({ message: 'The thought does not exist' })
-        : User.findByIdAndUpdate(
+        : User.findOneAndUpdate(
             { thoughts: req.params.thoughtId },
             { $pull: { thoughts: req.params.thoughtId } },
             { new: true }
