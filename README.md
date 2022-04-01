@@ -15,6 +15,13 @@
   Download the repo from GitHub.
   ## Usage
   Start the API with npm run start and use insonmia to make the requests.
+  
+  Example of a request in insomnia:
+<img width="1103" alt="Screen Shot 2022-04-01 at 13 37 16" src="https://user-images.githubusercontent.com/89933923/161330375-021958b3-a5e1-46b5-b23d-e088c1c8327e.png">
+
+  Example of how the data show in MongoDB:
+  
+  
   ## License
     Project Licensed under ISC
   ## Contribution
