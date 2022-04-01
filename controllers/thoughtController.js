@@ -4,6 +4,7 @@ module.exports = {
     //Get all thoughts
     getThoughts(req, res) {
         Thoughts.find()
+        .select('-__v')
         .populate('reactions')
         .then((thoughts) => res.json(thoughts))
         .catch((err) => res.status(500).json(err));
@@ -12,6 +13,7 @@ module.exports = {
     //Get single thought
     getSingleThought(req, res) {
         Thoughts.findOne({ _id: req.params.thoughtId })
+        .select('-__v')
         .populate('reactions')
         .then((thought) => 
         !thought
@@ -25,7 +27,7 @@ module.exports = {
     createThought(req, res) {
         Thoughts.create(req.body)
         .then((thought) => {
-            User.findOneAndUpdate(
+           return User.findOneAndUpdate(
                 { _id: req.body.userId },
                 { $push: { thoughts: thought._id } },
                 { new: true }
@@ -48,9 +50,16 @@ module.exports = {
         .then((thought) =>
         !thought
         ? res.status(404).json({ message: 'The thought does not exist' })
-        : res.json({
-            thought,
-        })
+        : User.findByIdAndUpdate(
+            { thoughts: req.params.thoughtId },
+            { $pull: { thoughts: req.params.thoughtId } },
+            { new: true }
+        )
+        )
+        .then((user) =>
+        !user
+        ? res.status(400).json({ message: "The thought was deleted but the user was not found" })
+        : res.json({ message: 'Thought was deleted' })
         )
         .catch((err) => {
             console.log(err);
